@@ -3,11 +3,8 @@ package rest;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import dao.Customer;
-import dao.Order;
 import dao.OrderEntryService;
-import dao.OrderProduct;
-import dao.Product;
+import dao.Shoutout;
 
 public class MyAppServletContextListener implements ServletContextListener {
 	private OrderEntryService service = null;
@@ -26,6 +23,9 @@ public class MyAppServletContextListener implements ServletContextListener {
 	}
 	
 	private void initalizeDB(OrderEntryService service) {
-		//test data goes here
+		
+		Shoutout shoutout = new Shoutout();
+		shoutout.setsText("AY BAY BAY!");
+		service.createShoutout(shoutout);
 	}
 }

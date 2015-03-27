@@ -11,12 +11,12 @@ import org.hibernate.Transaction;
 public class DAO  {
 	SessionFactory sessFact = null;
 	Session session = null;
-	ShoutoutDAO customerDAO = null;
+	ShoutoutDAO shoutoutDAO = null;
 	Transaction transaction = null;
 
 	public void init() throws Exception {
 		this.sessFact = HibernateUtil.getSessionFactory();
-		customerDAO = new ShoutoutDAO();
+		shoutoutDAO = new ShoutoutDAO();
 	}
 
 	public void terminate() {
@@ -24,8 +24,8 @@ public class DAO  {
 	}
 
 	
-	public ShoutoutDAO getCustomerDAO() {
-		return customerDAO;
+	public ShoutoutDAO getShoutoutDAO() {
+		return shoutoutDAO;
 	}
 
 	public SessionFactory getSessFact() {
@@ -63,13 +63,13 @@ public class DAO  {
 
 	}
 	
-	class ShoutoutDAO {
+	public class ShoutoutDAO {
 		public Shoutout createShoutout(Shoutout shoutout) throws Exception {
 			session.save(shoutout);
 			return shoutout;
 		}
 		
-		public List<Object> getAllShoutoutTuples() {
+		public List<Shoutout> getAllShoutoutTuples() {
 			List<Shoutout> shoutouts = null;
 			String hql = "From Shoutout";
 			Query query = session.createQuery(hql);
@@ -77,5 +77,18 @@ public class DAO  {
 			return results;
 		}
 		
+		public Shoutout getShoutout(int id) {
+			Shoutout shoutout = null;
+			String hql = "FROM Shoutout Where id = ?";
+			Query query = session.createQuery(hql);
+			query.setInteger(0, id);
+			List results = query.list();
+			if (results.size() > 0) {
+				shoutout = (Shoutout) results.get(0);
+			} else {
+				System.out.println("No Customer Found");
+			}
+			return shoutout;
+		}
 	}
 }

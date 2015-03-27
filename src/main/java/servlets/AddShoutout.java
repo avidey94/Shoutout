@@ -27,9 +27,9 @@ try
 	   		    
 
 	        
-          HttpSession session = request.getSession(true);	    
-          session.setAttribute("currentSessionUser",shoutout); 
-          response.sendRedirect("index.html"); //logged-in page      		
+     HttpSession session = request.getSession(true);	    
+     session.setAttribute("currentSessionUser",shoutout); 
+     response.sendRedirect("index.html"); //logged-in page      		
 } 
 		
 		
